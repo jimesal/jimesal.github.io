@@ -1,0 +1,29 @@
+<div *ngIf="metricas.totalRes">
+    <h1>Hola entidad {{ this.marca }}</h1>
+    <p>Dirección de wallet: <b>{{ this.wallet.address }}</b></p>
+    <p>Tu total de reseñas es: <b>{{ this.metricas.totalRes }}</b></p>
+    <p>La valoración promedio es de: <b>{{ this.metricas.promedioVal }}</b></p>
+    <p>Número de reseñas realizadas en los últimos 6 meses: <b>{{ this.metricas.totalUltRes }}</b></p>
+
+    <h1>Tu saldo</h1>
+    <p>El saldo del que dispones actualmente es: <b>{{ this.balance }}</b> wei.</p>
+    <fieldset>
+        <legend>Puedes recargar el saldo:</legend>
+        <form [formGroup]="recargaForm" (ngSubmit)="recargarSaldo(recargaForm.value)">
+            <textarea formControlName="recarga" name="recarga" placeholder="Recarga en Wei"></textarea><br>
+            <button type="submit" *ngIf="!mining">Recargar saldo</button>
+            <button type="submit" *ngIf="mining" disabled>Procesando…</button>
+        </form>
+    </fieldset>
+    <h1>Tus valoraciones</h1>
+    <div class="column" *ngFor="let res of resenias">
+        <div class="card" style="border-width:2px; border-style:solid;">
+            <div class="container" style="margin-left: 5px">
+              <h3><b>{{res.valoracion}}/10 </b><em>{{res.titulo}}</em></h3>
+              <p>Por <i>{{res.autor}}</i> el dia {{sharedSer.dateToJSTimestamp(res.fecha)}}<p>
+              <p>{{res.cuerpo}}</p>
+            </div>
+        </div>
+    </div>
+    <br><br>
+</div>

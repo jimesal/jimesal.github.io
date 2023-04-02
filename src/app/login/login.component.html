@@ -1,0 +1,12 @@
+<div>
+  <form [formGroup]="loginForm" (ngSubmit)="sendLogin(loginForm.value)">
+    <h1>Accede aquí:</h1>
+
+    <div *ngIf="!encrypted">
+      <textarea formControlName="seeds" name="seeds" rows="4" placeholder="Seeds"></textarea>
+    </div>
+    <button type="submit">Login</button>
+    <button *ngIf="!encrypted" type="button" (click)="loginWithMetamask()">Login with Metamask</button>
+    <button *ngIf="encrypted" type="button" (click)="removeSeeds()">Logout</button>
+  </form>
+</div>

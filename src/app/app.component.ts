@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { sessionService } from './session.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'reseg_v3';
+  title = 'reseg_v2';
 }

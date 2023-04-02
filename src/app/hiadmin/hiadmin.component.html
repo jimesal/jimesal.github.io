@@ -1,0 +1,15 @@
+<div *ngIf="this.saldo">
+    <div>
+        <h1>Métricas del sistema</h1>
+        <p>Número de usuarios registrados: <b>{{ this.metricas.totalUsuarios }}</b></p>
+        <p>Número de entidades registradas: <b>{{ this.metricas.totalEntidades }}</b></p>
+        <p>Número total de reseñas realizadas: <b>{{ this.metricas.totalResenias }}</b></p>
+    </div>
+    <form [formGroup]="recargaForm" (ngSubmit)="cargarSaldoGlobal(recargaForm.value)">
+        <h1>Saldo del sistema</h1>
+        <p>El saldo actual del sistema es de: <b>{{ this.saldo }}</b> wei.</p>
+        <p>Recarga el saldo:</p>
+        <textarea formControlName="recarga" name="recarga" placeholder="Recarga"></textarea><br>
+        <button type="submit">Recargar saldo</button>
+    </form>
+</div>

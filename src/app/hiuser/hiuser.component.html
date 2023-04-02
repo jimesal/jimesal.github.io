@@ -1,0 +1,12 @@
+<div *ngIf="this.entidades">
+    <h1>Hola usuario {{ this.datosUsr.usrName }}</h1>
+    <p>Nombre completo: <b>{{ this.datosUsr.nombreCompleto }}</b></p>
+    <p>Fecha de nacimiento: <b>{{ this.datosUsr.fechaNac }}</b></p>
+    <p>Dirección de wallet: <b>{{ this.wallet.address }}</b></p>
+
+    <h1>Puedes reseñar las siguientes entidades:</h1>
+    <li *ngFor="let entidad of entidades">
+      <button type="button" (click)="seleccionEntidad(entidad)"> {{entidad}} </button>
+    </li>
+    <br><br>
+</div>

@@ -1,0 +1,21 @@
+<div>
+  <h1>Registro para nuevos usuarios</h1>
+  <select #tipo (change)="usrTypeChanged(tipo.value)" [formGroup]="registerFormUsr">
+    <option value="">¿Eres usuario o entidad?</option>
+    <option *ngFor="let tipo of usrTypeOpt" [ngValue]="tipo" name="usrType">{{ tipo }}</option>
+  </select><br><br>
+  <form *ngIf="tipo.value == 'Usuario'" [formGroup]="registerFormUsr" (ngSubmit)="registrarUsuario(registerFormUsr.value)">
+    <input formControlName="usrName" name="usrName" placeholder="Nombre de Usuario"/><br>
+    <input formControlName="nombreCompleto" name="nombreCompleto" placeholder="Nombre Completo"/><br>
+    <p>Fecha de nacimiento:</p><input formControlName="fechaNac" type="date" name="fechaNac" placeholder="Fecha de Nacimiento"/><br><br>
+    <button type="submit" *ngIf="!mining">Registro</button>
+    <button type="submit" *ngIf="mining" disabled>Procesando…</button>
+  </form>
+  <form *ngIf="tipo.value == 'Entidad'" [formGroup]="registerFormEnt" (ngSubmit)="registrarEntidad(registerFormEnt.value)">
+    <input formControlName="nombreComercial" name="nombreComercial" placeholder="Nombre Comercial"/><br>
+    <input formControlName="saldoIni" type="number" name="saldoIni" placeholder="Saldo Inicial"/><br><br>
+    <button type="submit" *ngIf="!mining">Registro</button>
+    <button type="submit" *ngIf="mining" disabled>Procesando…</button>
+  </form>
+  <br><br>
+</div>

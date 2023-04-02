@@ -1,0 +1,33 @@
+<div *ngIf="this.promedioVal">
+    <h1>Está interesado en la entidad {{ this.marca }}</h1>
+    <p>La valoración media de la entidad es: <b>{{ this.promedioVal }}</b></p>
+
+    <h2>Escribe tu reseña</h2>
+    <form [formGroup]="valForm" (ngSubmit)="sendValoracion(valForm.value)">
+        <fieldset>
+            <legend>Título:</legend>
+            <textarea formControlName="titulo" name="titulo" rows="1" cols="70" placeholder="Título"></textarea>
+        </fieldset>
+        <fieldset>
+            <legend>Valoración sobre 10:</legend>
+            <div class="form-check" *ngFor="let nota of [1,2,3,4,5,6,7,8,9,10]">
+                <input formControlName="val" class="form-check-input" type="checkbox" 
+                [ngModel]="notaSeleccionada === nota" (change)="changeSelection($event, nota)" />
+                {{ nota }}
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Comentario:</legend>
+            <textarea formControlName="comentario" name="comentario" rows="5" cols="70" placeholder="Comentario"></textarea>
+        </fieldset>
+        <br><br>
+        <button type="submit" *ngIf="!mining">Enviar Reseña</button>
+        <button type="submit" *ngIf="mining" disabled>Procesando…</button>
+    </form>
+    <br><br><a class="button"
+        routerLink="/register"
+        routerLinkActive="activebutton"
+        ariaCurrentWhenActive="page">
+        Mi espacio
+    </a> 
+</div>
