@@ -20,17 +20,12 @@ export class LoginComponent implements OnInit {
   loginForm: any;
   registerForm: any;
 
-  wallet:any = {
-    address: ""
-  };
-
-  encrypted:string|null = '';
   window: any;
 
   mining: boolean = false ;
 
   constructor(@Inject(DOCUMENT) private document:Document, private router: Router) {
-    this.encrypted = window.localStorage.getItem("seeds");
+    sessionService.encrypted = window.localStorage.getItem("seeds");
     this.loginForm = new FormGroup({
       seeds: new FormControl(),
       password: new FormControl()
@@ -43,8 +38,8 @@ export class LoginComponent implements OnInit {
     // PALABRAS: edge maximum weapon pluck quality wheel approve creek evolve mixed fiction album
     // PASSWORD: test@METAMASK22
     
-    this.wallet = await sessionService.initWallet('project fix century now fringe hawk service juice uncover gorilla van glide');
-    if(this.wallet.address){
+    //this.wallet = await sessionService.initWallet('edge maximum weapon pluck quality wheel approve creek evolve mixed fiction album');
+    if(sessionService.wallet){
       this.router.navigate(['/register']) ;
     }
   }
@@ -58,8 +53,11 @@ export class LoginComponent implements OnInit {
           return sessionService.web3.utils.fromWei(result, 'ether');
         })
       }
-    });
-    this.router.navigate(['/register']) ;
+    }).then(() => {
+      sessionService.metamask = true ;
+      this.router.navigate(['/register'])
+    }) ;
+
   }
 
 
@@ -68,18 +66,9 @@ export class LoginComponent implements OnInit {
       return alert("Las semillas no son validas");
     }
 
-    this.wallet = await sessionService.initWallet(loginData.seeds).then(
+    await sessionService.initWallet(loginData.seeds).then(
       () => this.router.navigate(['/register']) 
     );
-  }
-
-  removeSeeds() {
-    window.localStorage.removeItem("seeds");
-    this.encrypted = null;
-
-    this.wallet = {
-      address: ""
-    };
   }
 }
 

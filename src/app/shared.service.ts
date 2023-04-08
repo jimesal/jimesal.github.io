@@ -1,13 +1,37 @@
 import { Injectable } from '@angular/core';
 import moment from 'moment';
+import Common from 'ethereumjs-common';
+import { Transaction } from 'ethereumjs-tx';
+import { sessionService } from './session.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 class SharedService {
 
-  constructor() { 
+  chain: any ;
 
+  constructor() { 
+    this.chain = Common.forCustomChain(
+      'mainnet',
+      {
+          chainId: 11155111,
+      },
+      'istanbul',
+    );
+  }
+
+  sendTransaction(rawData: any){
+    if(sessionService.metamask){
+      console.log(sessionService.web3.eth) ;
+      return sessionService.web3.eth.sendTransaction(rawData) ;
+    }else{
+      var transaction = new Transaction(rawData, { common: this.chain });
+      transaction.sign(sessionService.wallet.privateKey);
+      const serialized = "0x" + transaction.serialize().toString("hex");
+      return sessionService.web3.eth.sendSignedTransaction(serialized) ;
+    }
   }
 
   dateToEthTimestamp(fechaOrig: any){

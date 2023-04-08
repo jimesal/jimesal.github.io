@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { sharedService } from '../shared.service';
 import { sessionService } from '../session.service';
+import { Transaction } from 'ethereumjs-tx';
 
 
 
@@ -110,6 +111,7 @@ export class HientityComponent {
   async recargarSaldo(formData: any){
     alert("Va a recargar el saldo de la entidad con " + formData.recarga + " wei.");
     this.mining = true;
+
     var rawData = {
       from: sessionService.wallet.address,
       to: sessionService.entidad.contractAddress,
@@ -120,7 +122,7 @@ export class HientityComponent {
       data: sessionService.entidad.contract.methods.recargarSaldo().encodeABI()
     };
 
-    await sessionService.web3.eth.sendTransaction(rawData).then(
+    await sessionService.web3.eth.sendSignedTransaction(sharedService.sendTransaction(rawData)).then(
       (receipt:any) => {
         console.log(receipt) ;
         this.getBalance() ;

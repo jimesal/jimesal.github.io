@@ -16,11 +16,14 @@ export class SessionService {
 
   web3:any;
   wallet:any;
-
   sesion: any ;
+  metamask: any = false ;
+  encrypted:string|null = '';
+
+
   core : any = {
     contract: null ,
-    contractAddress : '0xa07487C67059BDA9910AB7394dEeA308288AFc5F',
+    contractAddress : '0x870d910e6e425679db258b930673cbc298f79ae6',
   }
   entidad : any  = {
     contract : null ,
@@ -42,8 +45,8 @@ export class SessionService {
     this.web3 = new Web3;
 
     this.web3.setProvider(
-      //new this.web3.providers.WebsocketProvider('wss://goerli.infura.io/ws/v3/f2ac4d7638cd4cb189dfed009aaa4c87')
-      new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545')
+      new this.web3.providers.WebsocketProvider('wss://eth-sepolia.g.alchemy.com/v2/z414Ch8Pa73fFyfFbJr5GF0skwc3JKAl')
+      //new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545')
     );
 
     return this.web3;
@@ -52,7 +55,7 @@ export class SessionService {
   async initWallet(seeds:string) {
     var mnemonic = new Mnemonic(seeds);
     var seed = await bip39.mnemonicToSeed(mnemonic.toString());
-    var path = "m/44'/60'/0'/0/8";
+    var path = "m/44'/60'/0'/0/2";
 
     var wallet = hdkey
       .fromMasterSeed(seed)
@@ -63,7 +66,7 @@ export class SessionService {
     var publicKey = util.privateToPublic(privateKey);
     var address = "0x" + util.pubToAddress(publicKey).toString("hex");
 
-    return this.wallet = {
+    this.wallet = {
       address: address,
       publicKey: publicKey,
       privateKey: privateKey,

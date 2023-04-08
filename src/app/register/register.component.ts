@@ -41,6 +41,7 @@ export class RegisterComponent {
 
   async esUsuario() {
     this.mining = true ;
+    console.log(sessionService.wallet.address) ;
     await sessionService.core.contract.methods.isRegistered().call({
       from: sessionService.wallet.address
     }).then(
@@ -68,13 +69,13 @@ export class RegisterComponent {
     var rawData = {
       from: sessionService.wallet.address,
       to: sessionService.core.contractAddress,
-      gasPrice: sessionService.web3.utils.toHex(10000000000),
-      gasLimit: sessionService.web3.utils.toHex(1000000),
+      gasPrice: sessionService.web3.utils.toHex(20000000000),
+      gasLimit: sessionService.web3.utils.toHex(6000000),
       nonce: await sessionService.web3.eth.getTransactionCount(sessionService.wallet.address),
       data: sessionService.core.contract.methods.addNuevoUsuario(registerData.usrName,registerData.nombreCompleto, sharedService.dateToEthTimestamp(registerData.fechaNac)).encodeABI()
     };
 
-    await sessionService.web3.eth.sendTransaction(rawData).then(
+    sharedService.sendTransaction(rawData).then(
       (receipt:any) => {
         this.mining = false;
         sessionService.sesion = "usuario" ;
@@ -98,17 +99,17 @@ export class RegisterComponent {
       from: sessionService.wallet.address,
       to: sessionService.core.contractAddress,
       value: registerData.saldoIni,
-      gasPrice: sessionService.web3.utils.toHex(10000000000),
+      gasPrice: sessionService.web3.utils.toHex(20000000000),
       gasLimit: sessionService.web3.utils.toHex(6000000),
       nonce: await sessionService.web3.eth.getTransactionCount(sessionService.wallet.address),
       data: sessionService.core.contract.methods.addNuevaEntidad(registerData.nombreComercial).encodeABI()
     };
 
-
-    await sessionService.web3.eth.sendTransaction(rawData).then(
+    await sharedService.sendTransaction(rawData).then(
       (receipt:any) => {
         console.log(receipt) ;
         this.mining = false;
+        sessionService.sesion = "entidad" ;
         this.router.navigate(['/hientity']) ;
       },
       (error:any) => {

@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { Router } from '@angular/router';
-
 import { sessionService } from '../session.service';
+import { sharedService } from '../shared.service';
 
 
 @Component({
@@ -61,7 +61,7 @@ export class ValorarComponent implements OnInit {
       data: sessionService.entidad.contract.methods.valorar(this.notaSeleccionada, formData.titulo, formData.comentario).encodeABI()
     };
 
-    await sessionService.web3.eth.sendTransaction(rawData).then(
+    await sessionService.web3.eth.sendSignedTransaction(sharedService.sendTransaction(rawData)).then(
       (receipt:any) => {
         console.log(receipt) ;
         this.mining = false;

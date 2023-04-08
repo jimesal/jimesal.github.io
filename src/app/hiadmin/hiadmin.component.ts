@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { sessionService } from '../session.service';
+import { sharedService } from '../shared.service';
 
 @Component({
   selector: 'app-hiadmin',
@@ -9,11 +10,6 @@ import { sessionService } from '../session.service';
   styleUrls: ['./hiadmin.component.css']
 })
 export class HiadminComponent {
-
-  web3:any;
-  wallet:any;
-  contract: any;
-  walletService: any ;
 
   recargaForm:any
 
@@ -34,18 +30,12 @@ export class HiadminComponent {
   seleccionada:boolean = false;
 
   constructor(private router: Router, private formBuilder: FormBuilder) {
-    this.walletService = sessionService ;
-
     this.recargaForm = new FormGroup({
       recarga: new FormControl(),
     });
   }
 
   async ngOnInit(){
-    this.web3 = await this.walletService.getWeb3() ;
-    this.wallet = await this.walletService.getWallet() ;
-    this.contract = await this.walletService.getCoreContract() ;
-
     await this.getSaldoSistema() ;
     await this.getMetricasSistema() ;
     console.log(this.saldo) ;
@@ -53,8 +43,8 @@ export class HiadminComponent {
   }
 
   async getSaldoSistema() {
-    this.contract.methods.getContractBalance().call({
-      from: this.wallet.address,
+    sessionService.core.contract.methods.getContractBalance().call({
+      from: sessionService.wallet.address,
     }).then(
       (receipt:any) => {
         console.log(receipt) ;
@@ -66,8 +56,8 @@ export class HiadminComponent {
   }
 
   async getMetricasSistema() {
-    this.contract.methods.getMetricasSistema().call({
-      from: this.wallet.address
+    sessionService.core.contract.methods.getMetricasSistema().call({
+      from: sessionService.wallet.address
     }).then(
       (receipt:any) => {
         console.log(receipt) ;
@@ -84,15 +74,18 @@ export class HiadminComponent {
     alert("Va a recargar el saldo del sistema con " + formData.recarga + " wei.");
 
     this.mining = true ;
-    this.web3.eth.sendTransaction({
-      from: this.wallet.address,
-      to: this.walletService.core.contractAddress,
+
+    var rawData = {
+      from: sessionService.wallet.address,
+      to: sessionService.core.contractAddress,
       value: formData.recarga,
-      gasPrice: this.web3.utils.toHex(10000000000),
-      gasLimit: this.web3.utils.toHex(6000000),
-      nonce: await this.web3.eth.getTransactionCount(this.wallet.address),
-      data: this.contract.methods.cargarSaldoGlobal().encodeABI()
-    }).then(
+      gasPrice: sessionService.web3.utils.toHex(10000000000),
+      gasLimit: sessionService.web3.utils.toHex(6000000),
+      nonce: await sessionService.web3.eth.getTransactionCount(sessionService.wallet.address),
+      data: sessionService.core.contract.methods.cargarSaldoGlobal().encodeABI()
+    };
+
+    await sharedService.sendTransaction(rawData).then(
       (receipt:any) => {
         console.log(receipt) ;
       },
