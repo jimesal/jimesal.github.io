@@ -8,7 +8,7 @@ import { sessionService } from './session.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'reseg_v2';
+  title = 'reseg';
 
   constructor(private router: Router){}
 
