@@ -23,7 +23,7 @@ export class SessionService {
 
   core : any = {
     contract: null ,
-    contractAddress : '0x870d910e6e425679db258b930673cbc298f79ae6',
+    contractAddress : '0xDE24A847BE44f43Ee4478b7aBa62D4d5BC4bdaeC',
   }
   entidad : any  = {
     contract : null ,
@@ -45,8 +45,8 @@ export class SessionService {
     this.web3 = new Web3;
 
     this.web3.setProvider(
-      new this.web3.providers.WebsocketProvider('wss://eth-sepolia.g.alchemy.com/v2/z414Ch8Pa73fFyfFbJr5GF0skwc3JKAl')
-      //new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545')
+      //new this.web3.providers.WebsocketProvider('wss://eth-sepolia.g.alchemy.com/v2/z414Ch8Pa73fFyfFbJr5GF0skwc3JKAl')
+      new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545')
     );
 
     return this.web3;
@@ -55,7 +55,7 @@ export class SessionService {
   async initWallet(seeds:string) {
     var mnemonic = new Mnemonic(seeds);
     var seed = await bip39.mnemonicToSeed(mnemonic.toString());
-    var path = "m/44'/60'/0'/0/2";
+    var path = "m/44'/60'/0'/0/3";
 
     var wallet = hdkey
       .fromMasterSeed(seed)
@@ -81,6 +81,22 @@ export class SessionService {
     this.entidad.marca = marca ;
     this.entidad.contract = new this.web3.eth.Contract(EntidadContract.abi, this.entidad.contractAddress) ;
 
+  }
+
+  async cargarContratoEntidadYMarca() {
+    console.log(sessionService.core.contract) ;
+    await sessionService.core.contract.methods.getContratoEntAddress().call({
+      from: this.wallet.address
+    }).then(
+      async (receipt:any) => {
+        console.log(receipt) ;
+        this.entidad.marca = receipt._marca
+        sessionService.setEntidad(receipt.dirContrato, this.entidad.marca )
+        sessionService.sesion = "entidad" ;
+      },
+      (error:any) => {
+        console.error(error)
+    })
   }
 }
 

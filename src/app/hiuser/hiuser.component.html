@@ -4,9 +4,10 @@
     <p>Fecha de nacimiento: <b>{{ this.datosUsr.fechaNac }}</b></p>
     <p>Dirección de wallet: <b>{{ this.wallet.address }}</b></p>
 
+    <br><br>
     <h1>Puedes reseñar las siguientes entidades:</h1>
+    <p *ngIf="entidades.length == 0">Actualmente no existen entidades que pueda reseñar</p>
     <li *ngFor="let entidad of entidades">
       <button type="button" (click)="seleccionEntidad(entidad)"> {{entidad}} </button>
     </li>
-    <br><br>
 </div>

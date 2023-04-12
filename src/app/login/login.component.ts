@@ -6,6 +6,11 @@ import { DOCUMENT } from '@angular/common';
 import * as Mnemonic from "bitcore-mnemonic";
 import { sessionService } from '../session.service';
 
+import detectEthereumProvider from '@metamask/detect-provider';
+import { sharedService } from '../shared.service';
+import Web3 from 'web3';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -38,7 +43,11 @@ export class LoginComponent implements OnInit {
     // PALABRAS: edge maximum weapon pluck quality wheel approve creek evolve mixed fiction album
     // PASSWORD: test@METAMASK22
     
-    //this.wallet = await sessionService.initWallet('edge maximum weapon pluck quality wheel approve creek evolve mixed fiction album');
+    await sessionService.initWallet('project fix century now fringe hawk service juice uncover gorilla van glide');
+    sessionService.metamask = true ;
+    sessionService.web3.setProvider(
+      new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545')
+    );
     if(sessionService.wallet){
       this.router.navigate(['/register']) ;
     }
@@ -53,8 +62,9 @@ export class LoginComponent implements OnInit {
           return sessionService.web3.utils.fromWei(result, 'ether');
         })
       }
-    }).then(() => {
+    }).then(async () => {
       sessionService.metamask = true ;
+      sessionService.web3.setProvider(await detectEthereumProvider()) ; ;
       this.router.navigate(['/register'])
     }) ;
 

@@ -16,7 +16,7 @@ class SharedService {
     this.chain = Common.forCustomChain(
       'mainnet',
       {
-          chainId: 11155111,
+          chainId: 11155111, //Sepolia
       },
       'istanbul',
     );

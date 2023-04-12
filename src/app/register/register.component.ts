@@ -78,6 +78,7 @@ export class RegisterComponent {
     sharedService.sendTransaction(rawData).then(
       (receipt:any) => {
         this.mining = false;
+        alert("Registro realizado correctamente.");
         sessionService.sesion = "usuario" ;
         this.router.navigate(['/hiuser']) ;
       },
@@ -106,27 +107,30 @@ export class RegisterComponent {
     };
 
     await sharedService.sendTransaction(rawData).then(
-      (receipt:any) => {
+      async (receipt:any) => {
         console.log(receipt) ;
         this.mining = false;
+        alert("Registro realizado correctamente.");
         sessionService.sesion = "entidad" ;
+        await sessionService.cargarContratoEntidadYMarca() ;
         this.router.navigate(['/hientity']) ;
       },
       (error:any) => {
         this.mining = false;
-        alert("Algo ha salido mal. La operación no ha sido completada.");
-        console.error(error)
+        alert(error);
+        console.log(error) ;
     }) 
     
   }
 
-  navigateTo(tipoUsuario: any){
+  async navigateTo(tipoUsuario: any){
     switch(tipoUsuario){
       case 'usuario': {
         this.router.navigate(['/hiuser']) ; 
         break ;
       }
       case 'entidad': {
+        await sessionService.cargarContratoEntidadYMarca() ;
         this.router.navigate(['/hientity']) ;
         break ;
       }

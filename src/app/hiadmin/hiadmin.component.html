@@ -5,7 +5,7 @@
         <p>Número de entidades registradas: <b>{{ this.metricas.totalEntidades }}</b></p>
         <p>Número total de reseñas realizadas: <b>{{ this.metricas.totalResenias }}</b></p>
     </div>
-    <form [formGroup]="recargaForm" (ngSubmit)="cargarSaldoGlobal(recargaForm.value)">
+    <form [formGroup]="recargaForm" (ngSubmit)="recargarSaldoGlobal(recargaForm.value)">
         <h1>Saldo del sistema</h1>
         <p>El saldo actual del sistema es de: <b>{{ this.saldo }}</b> wei.</p>
         <p>Recarga el saldo:</p>

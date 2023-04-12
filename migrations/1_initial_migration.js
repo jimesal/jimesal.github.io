@@ -3,5 +3,5 @@ const Core = artifacts.require("Core") ;
 
 module.exports = (deployer) => {
     // Create contract with 1 ether (contract must be payable)
-    deployer.deploy(Core, { value: "100000000000000000" });
+    deployer.deploy(Core, { value: "50000000000000000" });
 };

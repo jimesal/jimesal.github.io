@@ -34,6 +34,7 @@ export class ValorarComponent implements OnInit {
 
   async ngOnInit(){
     this.marca = sessionService.entidad.marca ;
+    console.log(this.marca) ;
     await this.getPromedioVal() ;
   }
 
@@ -50,8 +51,12 @@ export class ValorarComponent implements OnInit {
   }
 
   async sendValoracion(formData: any){
-    this.mining = true;
 
+    if (!this.notaSeleccionada) return alert("Introduce una valoración a la reseña");
+    if (!formData.titulo) return alert("Introduce un título a la reseña");
+    if (!formData.comentario) return alert("Introduce un comentario a la reseña");
+
+    this.mining = true;
     var rawData = {
       from: sessionService.wallet.address,
       to: sessionService.entidad.contractAddress,
@@ -61,18 +66,18 @@ export class ValorarComponent implements OnInit {
       data: sessionService.entidad.contract.methods.valorar(this.notaSeleccionada, formData.titulo, formData.comentario).encodeABI()
     };
 
-    await sessionService.web3.eth.sendSignedTransaction(sharedService.sendTransaction(rawData)).then(
+    await sharedService.sendTransaction(rawData).then(
       (receipt:any) => {
         console.log(receipt) ;
         this.mining = false;
-        this.router.navigate(['/hiuser']) ;
+        alert("Reseña generada correctamente.");
       },
       (error:any) => {
         this.mining = false;
-        alert("La operación no ha sido completada.\n" + error);
-        this.router.navigate(['/hiuser']) ;
-        console.error(error)
+        alert(error);
+        console.error(error) ;        
     })
+    this.router.navigate(['/hiuser']) ;
   }
 
   changeSelection(event: any, index: any) {

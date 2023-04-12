@@ -70,7 +70,9 @@ export class HiadminComponent {
     }) 
   }
 
-  async cargarSaldoGlobal(formData: any) {
+  async recargarSaldoGlobal(formData: any) {
+    if (!formData.recarga) return alert("Introduzca un valor para la recarga");
+
     alert("Va a recargar el saldo del sistema con " + formData.recarga + " wei.");
 
     this.mining = true ;
@@ -87,6 +89,7 @@ export class HiadminComponent {
 
     await sharedService.sendTransaction(rawData).then(
       (receipt:any) => {
+        this.getSaldoSistema() ;
         console.log(receipt) ;
       },
       (error:any) => {

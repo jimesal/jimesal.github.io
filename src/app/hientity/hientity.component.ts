@@ -43,30 +43,14 @@ export class HientityComponent {
   async ngOnInit(){
     this.wallet = sessionService.wallet ;
     this.sharedSer = sharedService ;
+    this.marca = sessionService.entidad.marca ;
 
-    await this.cargarContratoEntidadYMarca() ;
     await this.getMetricas() ;
     await this.getBalance() ;
     await this.getResenias() ;
   }
 
-  async cargarContratoEntidadYMarca() {
-    if(sessionService.sesion != "entidad"){
-      console.log(sessionService.core.contract) ;
-      await sessionService.core.contract.methods.getContratoEntAddress().call({
-        from: this.wallet.address
-      }).then(
-        async (receipt:any) => {
-          console.log(receipt) ;
-          this.marca = receipt._marca
-          sessionService.setEntidad(receipt.dirContrato, this.marca )
-          sessionService.sesion = "entidad" ;
-        },
-        (error:any) => {
-          console.error(error)
-      })
-    }
-  }
+  
 
   async getMetricas() {
     await sessionService.entidad.contract.methods.getMetricas().call({
@@ -109,6 +93,9 @@ export class HientityComponent {
   }
 
   async recargarSaldo(formData: any){
+
+    if (!formData.recarga) return alert("Introduzca un valor para la recarga");
+
     alert("Va a recargar el saldo de la entidad con " + formData.recarga + " wei.");
     this.mining = true;
 
@@ -122,7 +109,7 @@ export class HientityComponent {
       data: sessionService.entidad.contract.methods.recargarSaldo().encodeABI()
     };
 
-    await sessionService.web3.eth.sendSignedTransaction(sharedService.sendTransaction(rawData)).then(
+    await sharedService.sendTransaction(rawData).then(
       (receipt:any) => {
         console.log(receipt) ;
         this.getBalance() ;

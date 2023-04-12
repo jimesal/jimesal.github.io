@@ -66,8 +66,6 @@ export class HiuserComponent implements OnInit {
   async seleccionEntidad(nombre: string) {
     this.seleccionada = true ;
 
-    console.log(sessionService.core.contract) ;
-
     await sessionService.core.contract.methods.getContratoEnt(nombre).call({
       from: this.wallet.address
     }).then(

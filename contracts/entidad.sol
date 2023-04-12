@@ -15,7 +15,6 @@ contract Entidad is FreeForUser{
     }
 
     Core coreContract ;
-    address wallEntidad ;
     string marca ;
     Resenia[] resenias ;
     mapping(address => uint) resXUsr ;
@@ -28,10 +27,9 @@ contract Entidad is FreeForUser{
         _ ;
     }
 
-    constructor(address _wallEntidad, string memory _nombre) {
+    constructor(string memory _nombre){
         coreContract = Core(msg.sender) ;
         marca = _nombre ;
-        wallEntidad = _wallEntidad ;
     }
 
     receive() external payable {
@@ -52,15 +50,6 @@ contract Entidad is FreeForUser{
     }
 
     function recargarSaldo() external payable onlyEntidad{
-    }
-
-    function getRes(uint idRes) external view returns(string memory autor, uint fecha, uint valoracion, string memory titulo, string memory cuerpo){
-        Resenia memory res =  resenias[idRes] ;
-        autor = res.autor ;
-        fecha = res.fecha ;
-        valoracion = res.valoracion ;
-        titulo = res.titulo ;
-        cuerpo = res.cuerpo ;
     }
 
     function getMetricas() external view onlyEntidad returns(uint _totalRes, uint _sumaVal, uint _totalUltRes){
@@ -99,7 +88,7 @@ contract Entidad is FreeForUser{
         _menos6Meses = (block.timestamp - fecha) <  6 * 30 days ; 
     }
 
-    function getContractBalance() public view returns(uint balance){
+    function getContractBalance() public view onlyEntidad returns(uint balance){
     balance = address(this).balance;
     }
 }
