@@ -102,7 +102,7 @@ export class HientityComponent {
     var rawData = {
       from: sessionService.wallet.address,
       to: sessionService.entidad.contractAddress,
-      value: formData.recarga ,
+      value: formData.recarga,
       gasPrice: sessionService.web3.utils.toHex(10000000000),
       gasLimit: sessionService.web3.utils.toHex(6000000),
       nonce: await sessionService.web3.eth.getTransactionCount(sessionService.wallet.address),
@@ -112,12 +112,13 @@ export class HientityComponent {
     await sharedService.sendTransaction(rawData).then(
       (receipt:any) => {
         console.log(receipt) ;
+        alert("Recarga realizada correctamente.");
         this.getBalance() ;
         this.mining = false;
       },
       (error:any) => {
         this.mining = false;
-        alert("Algo ha salido mal. La operación no ha sido completada.");
+        alert(error);
         console.error(error)
     })
   }

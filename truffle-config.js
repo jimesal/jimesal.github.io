@@ -42,9 +42,9 @@
  */
 
 // require('dotenv').config();
-// const { MNEMONIC, PROJECT_ID } = process.env;
+//const { MNEMONIC, PROJECT_ID } = process.env;
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 module.exports = {
   /**
@@ -69,6 +69,11 @@ module.exports = {
      port: 7545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
     },
+    sepolia: {
+      provider: () => new HDWalletProvider('edge maximum weapon pluck quality wheel approve creek evolve mixed fiction album', 'wss://eth-sepolia.g.alchemy.com/v2/z414Ch8Pa73fFyfFbJr5GF0skwc3JKAl'),
+      network_id: '11155111',
+     port: 8545,         
+     },
     //
     // An additional network, but with some advanced options…
     // advanced: {

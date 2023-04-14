@@ -34,7 +34,6 @@ export class ValorarComponent implements OnInit {
 
   async ngOnInit(){
     this.marca = sessionService.entidad.marca ;
-    console.log(this.marca) ;
     await this.getPromedioVal() ;
   }
 
@@ -74,7 +73,7 @@ export class ValorarComponent implements OnInit {
       },
       (error:any) => {
         this.mining = false;
-        alert(error);
+        alert("Algo ha salido mal: Reseña no generada.");
         console.error(error) ;        
     })
     this.router.navigate(['/hiuser']) ;

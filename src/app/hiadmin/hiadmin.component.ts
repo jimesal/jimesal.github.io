@@ -38,8 +38,6 @@ export class HiadminComponent {
   async ngOnInit(){
     await this.getSaldoSistema() ;
     await this.getMetricasSistema() ;
-    console.log(this.saldo) ;
-
   }
 
   async getSaldoSistema() {
@@ -80,7 +78,7 @@ export class HiadminComponent {
     var rawData = {
       from: sessionService.wallet.address,
       to: sessionService.core.contractAddress,
-      value: formData.recarga,
+      value: sessionService.web3.utils.toHex(formData.recarga),
       gasPrice: sessionService.web3.utils.toHex(10000000000),
       gasLimit: sessionService.web3.utils.toHex(6000000),
       nonce: await sessionService.web3.eth.getTransactionCount(sessionService.wallet.address),
@@ -91,9 +89,13 @@ export class HiadminComponent {
       (receipt:any) => {
         this.getSaldoSistema() ;
         console.log(receipt) ;
+        alert("Recarga realizada correctamente.");
+        this.mining = false ;
+
       },
       (error:any) => {
-        alert("Algo ha salido mal. La operación no ha sido completada.");
+        this.mining = false ;
+        alert(error);
         console.error(error)
     }) 
   }

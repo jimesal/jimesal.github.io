@@ -17,11 +17,7 @@ import Web3 from 'web3';
   styleUrls: ['./login.component.css'],
 })
 
-export class LoginComponent implements OnInit {
-
-// edge maximum weapon pluck quality wheel approve creek evolve mixed fiction album
-// test@METAMASK22
-  
+export class LoginComponent implements OnInit {  
   loginForm: any;
   registerForm: any;
 
@@ -40,14 +36,6 @@ export class LoginComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // PALABRAS: edge maximum weapon pluck quality wheel approve creek evolve mixed fiction album
-    // PASSWORD: test@METAMASK22
-    
-    await sessionService.initWallet('project fix century now fringe hawk service juice uncover gorilla van glide');
-    sessionService.metamask = true ;
-    sessionService.web3.setProvider(
-      new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545')
-    );
     if(sessionService.wallet){
       this.router.navigate(['/register']) ;
     }

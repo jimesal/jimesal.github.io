@@ -50,6 +50,7 @@ contract Core is FreeForUser{
         strUsuarios[msg.sender].usrName = usrName ;
         strUsuarios[msg.sender].nameCompleto = nombre ;
         strUsuarios[msg.sender].fechaNac = fechaNac ;
+        totalUsr++ ;
     }
     
     function addNuevaEntidad(string memory nombre) external payable{

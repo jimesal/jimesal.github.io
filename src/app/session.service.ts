@@ -23,7 +23,8 @@ export class SessionService {
 
   core : any = {
     contract: null ,
-    contractAddress : '0xDE24A847BE44f43Ee4478b7aBa62D4d5BC4bdaeC',
+    contractAddress : '0x4427F3c0B99a82F596920FEb8c414Be0704921f3',
+    //edge maximum weapon pluck quality wheel approve creek evolve mixed fiction album
   }
   entidad : any  = {
     contract : null ,
@@ -45,8 +46,7 @@ export class SessionService {
     this.web3 = new Web3;
 
     this.web3.setProvider(
-      //new this.web3.providers.WebsocketProvider('wss://eth-sepolia.g.alchemy.com/v2/z414Ch8Pa73fFyfFbJr5GF0skwc3JKAl')
-      new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545')
+      new this.web3.providers.WebsocketProvider('wss://eth-sepolia.g.alchemy.com/v2/z414Ch8Pa73fFyfFbJr5GF0skwc3JKAl')
     );
 
     return this.web3;
@@ -55,7 +55,7 @@ export class SessionService {
   async initWallet(seeds:string) {
     var mnemonic = new Mnemonic(seeds);
     var seed = await bip39.mnemonicToSeed(mnemonic.toString());
-    var path = "m/44'/60'/0'/0/3";
+    var path = "m/44'/60'/0'/0/1";
 
     var wallet = hdkey
       .fromMasterSeed(seed)
@@ -84,7 +84,6 @@ export class SessionService {
   }
 
   async cargarContratoEntidadYMarca() {
-    console.log(sessionService.core.contract) ;
     await sessionService.core.contract.methods.getContratoEntAddress().call({
       from: this.wallet.address
     }).then(

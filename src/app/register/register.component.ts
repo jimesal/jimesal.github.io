@@ -84,7 +84,7 @@ export class RegisterComponent {
       },
       (error:any) => {
         this.mining = false;
-        alert("Algo ha salido mal. La operación no ha sido completada.");
+        alert(error);
         console.error(error)
     })
   }
@@ -118,7 +118,7 @@ export class RegisterComponent {
       (error:any) => {
         this.mining = false;
         alert(error);
-        console.log(error) ;
+        console.error(error) ;
     }) 
     
   }
@@ -138,7 +138,7 @@ export class RegisterComponent {
         this.router.navigate(['/hiadmin']) ;
         break ;
       }
-      default : console.log("Tipo de cliente no reconocido")
+      default : console.error("Tipo de cliente no reconocido")
     }
   }
 

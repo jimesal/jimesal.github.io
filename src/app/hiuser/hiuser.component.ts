@@ -56,7 +56,6 @@ export class HiuserComponent implements OnInit {
     }).then(
       (receipt:any) => {
         this.entidades = receipt ;
-        console.log(this.entidades) ;
       },
       (error:any) => {
         console.error(error)

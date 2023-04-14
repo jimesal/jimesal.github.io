@@ -9,7 +9,8 @@
         <h1>Saldo del sistema</h1>
         <p>El saldo actual del sistema es de: <b>{{ this.saldo }}</b> wei.</p>
         <p>Recarga el saldo:</p>
-        <textarea formControlName="recarga" name="recarga" placeholder="Recarga"></textarea><br>
+        <textarea formControlName="recarga" type="number" name="recarga" placeholder="Recarga"></textarea><br>
         <button type="submit">Recargar saldo</button>
+        <button type="submit" *ngIf="mining" disabled>Procesando…</button>
     </form>
 </div>

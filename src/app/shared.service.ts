@@ -24,7 +24,6 @@ class SharedService {
 
   sendTransaction(rawData: any){
     if(sessionService.metamask){
-      console.log(sessionService.web3.eth) ;
       return sessionService.web3.eth.sendTransaction(rawData) ;
     }else{
       var transaction = new Transaction(rawData, { common: this.chain });
