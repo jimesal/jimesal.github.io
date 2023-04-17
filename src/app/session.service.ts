@@ -55,7 +55,7 @@ export class SessionService {
   async initWallet(seeds:string) {
     var mnemonic = new Mnemonic(seeds);
     var seed = await bip39.mnemonicToSeed(mnemonic.toString());
-    var path = "m/44'/60'/0'/0/1";
+    var path = "m/44'/60'/0'/0/0";
 
     var wallet = hdkey
       .fromMasterSeed(seed)
