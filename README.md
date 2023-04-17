@@ -2,7 +2,9 @@
 
 Disclaimer: Project for academic purposes. No guaranteed functionality and security. Private keys of the system admin visible in session.service.ts
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.5.
+## Smart Contracts
+
+This dApp is founded on the smart contracts contained in the contracts directory. Developed with the support of Truffle v5.7.2, Solidity v0.8.17, Node v18.13.0 and Web3.js v1.8.1.
 
 ## Development server
 
