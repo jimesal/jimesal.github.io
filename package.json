@@ -1,6 +1,7 @@
 {
   "name": "reseg",
   "version": "0.0.0",
+  "homepage": "http://jimesal.github.io/src/app/login/login.component.html",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
