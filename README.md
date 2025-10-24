@@ -1,10 +1,85 @@
-# Reseg
+# Reseg — Decentralized Review System (DApp)
 
-Disclaimer: Project for academic purposes. Not guaranteed functionality and security. Private keys of the system admin visible in session.service.ts
-
-## Smart Contracts
+**Reseg** is a secure blockchain-based review system built on **Ethereum**, designed to bring transparency and trust to public reviews in Web 3.0.
 
 This dApp is founded on the smart contracts contained in the contracts directory. Developed with the support of Truffle v5.7.2, Solidity v0.8.17, Node v18.13.0 and Web3.js v1.8.1.
+
+---
+
+## 🧩 Overview
+Reseg allows two types of users:
+- **Entities** (companies/brands) register by depositing ETH to cover review costs and platform fees.
+- **Reviewers** register freely and can post reviews about registered entities.
+- An **Administrator** oversees metrics and manages the global contract balance.
+
+All interactions (registration, reviews, balance operations) are handled through **smart contracts** for full transparency and immutability.
+
+---
+
+## ⚙️ System Components
+
+### Core Smart Contract
+Acts as the central hub connecting all entity contracts.
+- Registers reviewers and entities.
+- Manages global balances and metrics.
+- Deploys entity-specific contracts using a **Contract Factory** pattern.
+
+**Main functions:**
+- `addNuevoUsuario()`
+- `addNuevaEntidad()`
+- `getDatosUsuario()`
+- `getEntidades()`
+- `getMetricasSistema()`
+- `getContratoEnt()`
+- `cargarSaldoGlobal()`
+
+---
+
+### Entity Smart Contract
+Created per registered company. Stores reviews and manages its own balance.
+
+**Main features:**
+- Stores all reviews in a `struct Resena`.
+- Each user can post one review every 6 months.
+- Calculates metrics (average rating, number of reviews, recent reviews).
+- Allows the company to recharge its balance.
+
+**Key functions:**
+- `valorar()`
+- `recargarSaldo()`
+- `getResenias()`
+- `getMetricas()`
+
+---
+
+## 🖥️ User Interfaces
+- **Login** (via wallet or MetaMask)
+- **Registration**
+  - Reviewer: username, full name, date of birth
+  - Entity: commercial name, initial balance
+- **Reviewer Dashboard**: view profile, entities list, submit reviews
+- **Entity Dashboard**: view reviews, metrics, and recharge balance
+- **Admin Panel**: view system stats and top up global contract
+
+---
+
+## 🧱 Data Structures
+```solidity
+struct Usuario {
+  string username;
+  string fullName;
+  uint birthDate;
+}
+
+struct Resena {
+  string author;
+  uint date;
+  uint rating;
+  string title;
+  string body;
+}
+
+Disclaimer: Project for academic purposes. Not guaranteed functionality and security. Private keys of the system admin visible in session.service.ts
 
 ## Development server
 
