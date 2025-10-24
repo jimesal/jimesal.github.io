@@ -13,7 +13,7 @@ Reseg allows two types of users:
 - An **Administrator** oversees metrics and manages the global contract balance.
 
 ![UML](assets/images/UML.png)
-![ER](assets/images/ER.png)
+
 
 All interactions (registration, reviews, balance operations) are handled through **smart contracts** for full transparency and immutability.
 
@@ -53,6 +53,8 @@ Created per registered company. Stores reviews and manages its own balance.
 - `getResenias()`
 - `getMetricas()`
 
+![ER](assets/images/ER.png)
+
 ---
 
 ## 🖥️ User Interfaces
@@ -81,6 +83,8 @@ struct Resena {
   string title;
   string body;
 }
+
+---
 
 Disclaimer: Project for academic purposes. Not guaranteed functionality and security. Private keys of the system admin visible in session.service.ts
 
