@@ -6,7 +6,7 @@ This dApp is founded on the smart contracts contained in the contracts directory
 
 ---
 
-## 🧩 Overview
+## Overview
 Reseg allows two types of users:
 - **Entities** (companies/brands) register by depositing ETH to cover review costs and platform fees.
 - **Reviewers** register freely and can post reviews about registered entities.
@@ -57,7 +57,7 @@ Created per registered company. Stores reviews and manages its own balance.
 
 ---
 
-## 🖥️ User Interfaces
+## User Interfaces
 - **Login** (via wallet or MetaMask)
 - **Registration**
   - Reviewer: username, full name, date of birth
@@ -68,7 +68,7 @@ Created per registered company. Stores reviews and manages its own balance.
 
 ---
 
-## 🧱 Data Structures
+## Data Structures
 ```solidity
 struct Usuario {
   string username;
@@ -83,6 +83,7 @@ struct Resena {
   string title;
   string body;
 }
+`````
 
 ---
 
