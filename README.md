@@ -12,6 +12,9 @@ Reseg allows two types of users:
 - **Reviewers** register freely and can post reviews about registered entities.
 - An **Administrator** oversees metrics and manages the global contract balance.
 
+![UML](assets/images/UML.png)
+![ER](assets/images/ER.png)
+
 All interactions (registration, reviews, balance operations) are handled through **smart contracts** for full transparency and immutability.
 
 ---
