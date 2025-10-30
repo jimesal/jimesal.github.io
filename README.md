@@ -1,15 +1,17 @@
 # Reseg — Decentralized Review System (DApp)
+**Project completed on March 2023**
 
 **Reseg** is a secure blockchain-based review system built on **Ethereum**, designed to bring transparency and trust to public reviews in Web 3.0.
 
 This dApp is founded on the smart contracts contained in the contracts directory. Developed with the support of Truffle v5.7.2, Solidity v0.8.17, Node v18.13.0 and Web3.js v1.8.1.
 
 ---
+
 ## Disclaimer
 
-This project was developed **for academic purposes only**.  
-It is **not intended for production use**, and **no guarantees** are made regarding its **security, performance, or functionality**.  
-Note: The **administrator’s private keys** are visible in `session.service.ts`, and should never be used in a real blockchain environment.
+This project was developed for academic purposes only.  
+It is not intended for production use, and no guarantees are made regarding its security, performance, or functionality.  
+Note: The administrator’s private keys** are visible in `session.service.ts`, and should never be used in a real blockchain environment.
 
 ---
 
